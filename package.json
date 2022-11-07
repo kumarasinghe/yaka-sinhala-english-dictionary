@@ -1,0 +1,12 @@
+{
+  "name": "yaka-sinhala-english-dictionary",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "build": "sh ./build.sh"
+  },
+  "devDependencies": {
+    "minify": "^9.1.0"
+  }
+}
