@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Yaka Sinhala English Dictionary",
-  "version": "1.0",
+  "version": "1.1",
   "description": "Learn Sinhala & English definitions by highlighting words",
   "icons": {
     "16": "assets/icon-16.png",
