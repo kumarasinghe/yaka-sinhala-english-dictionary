@@ -37,17 +37,19 @@ async function findDefinition(word) {
 }
 
 async function textSelectHandler(event) {
-  const { srcElement, pageY, pageX } = event;
-
-  // prevent suggestions for input elements
-  if (srcElement instanceof HTMLInputElement) {
-    return;
-  }
+  const { pageY, pageX, target } = event;
 
   // extract selected word
   const selectedText = window.getSelection()?.toString();
   const selectedWord = extractWord(selectedText);
-  if (!selectedWord) return;
+
+  if (!selectedWord) {
+    // hide tooltip if clicked outside
+    if (!tooltipContainer.contains(target)) {
+      setTooltipVisibility(false);
+    }
+    return;
+  }
 
   // find the definition
   const { word, definitions } = await findDefinition(selectedWord);
@@ -56,13 +58,15 @@ async function textSelectHandler(event) {
   if (!definitions.length) return;
 
   // exists in the same js context
-  showTooltipAnchor({
+  setTooltipData({
     title: word,
     isPerfectMatch: selectedWord === word,
     description: definitions.join("  |  "),
-    x: pageX,
-    y: pageY - 30,
+    x: `${pageX}px`,
+    y: `${pageY - 30}px`,
   });
+
+  setTooltipVisibility(true);
 }
 
 document.addEventListener("mouseup", textSelectHandler);
